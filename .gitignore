@@ -1,0 +1,4 @@
+__pycache__/
+.idea/
+train_model/
+/dataset_fixed.zip
