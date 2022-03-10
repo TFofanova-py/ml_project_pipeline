@@ -1,9 +1,10 @@
-md5: 99c1bea886a2e83136f7006d25944423
+md5: 53f759abe94ad052b4995f7ce64a6ee6
 frozen: true
 deps:
-- checksum: W/"c429ce014158f2ad1e25f97a9eaa7966"
-  path: https://github.com/darkin1/sign-language-digits-ml/blob/master/dataset_fixed.zip
+- checksum: '"5d63354486083630dc1ff265fa730a7fd0a620e0e0e5086e83abe0244f713451"'
+  path: https://github.com/darkin1/sign-language-digits-ml/raw/master/dataset_fixed.zip
+  size: 8838725
 outs:
-- md5: 13138c71ca0862b45ec934106c117990
-  size: 152030
+- md5: 324b8d39251a2cbdf00527ebed29be97
+  size: 8838725
   path: dataset_fixed.zip

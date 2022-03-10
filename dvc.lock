@@ -18,16 +18,22 @@ stages:
       md5: 4bbbc8f9a5bbd7c8fbbc03b66ab7ec4b.dir
       size: 33866544
       nfiles: 2
+    - path: split_dataset.py
+      md5: 14706cb125b27e5f8631390196d93114
+      size: 671
+    params:
+      params.yaml:
+        split_dataset.train_size: 0.75
     outs:
     - path: datasets/x_test.pickle
-      md5: de0e16a023fb8c0417e256e16aeedf17
-      size: 6766756
+      md5: 92525e6442a58b967f5c11f8e51a181c
+      size: 8454308
     - path: datasets/x_train.pickle
-      md5: 5420551498941918919796f8cb98248d
-      size: 27017380
+      md5: 297f92a7685f505dbd93f8b4c1727388
+      size: 25329828
     - path: datasets/y_test.pickle
-      md5: 259d1a0eebe66e69e9c2befc2370afb9
-      size: 16673
+      md5: 8f8c8d1591714b3c9649db94b61cf25f
+      size: 20793
     - path: datasets/y_train.pickle
-      md5: 94129cab9399d79099167d484edf12ab
-      size: 66122
+      md5: 51f8ead72703970a0af44e2473eee64b
+      size: 61993
