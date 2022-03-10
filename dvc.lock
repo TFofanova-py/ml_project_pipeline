@@ -6,3 +6,28 @@ stages:
     - path: dataset_fixed.zip
       md5: 324b8d39251a2cbdf00527ebed29be97
       size: 8838725
+    outs:
+    - path: datasets/dataset_fixed/
+      md5: 4bbbc8f9a5bbd7c8fbbc03b66ab7ec4b.dir
+      size: 33866544
+      nfiles: 2
+  split_dataset:
+    cmd: python split_dataset.py
+    deps:
+    - path: datasets/dataset_fixed/
+      md5: 4bbbc8f9a5bbd7c8fbbc03b66ab7ec4b.dir
+      size: 33866544
+      nfiles: 2
+    outs:
+    - path: datasets/x_test.pickle
+      md5: de0e16a023fb8c0417e256e16aeedf17
+      size: 6766756
+    - path: datasets/x_train.pickle
+      md5: 5420551498941918919796f8cb98248d
+      size: 27017380
+    - path: datasets/y_test.pickle
+      md5: 259d1a0eebe66e69e9c2befc2370afb9
+      size: 16673
+    - path: datasets/y_train.pickle
+      md5: 94129cab9399d79099167d484edf12ab
+      size: 66122
