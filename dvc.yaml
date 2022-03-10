@@ -1,0 +1,5 @@
+stages:
+  extract_archive:
+    cmd: unzip -q dataset_fixed.zip -d datasets/
+    deps:
+    - dataset_fixed.zip

@@ -1,0 +1,8 @@
+schema: '2.0'
+stages:
+  extract_archive:
+    cmd: unzip -q dataset_fixed.zip -d datasets/
+    deps:
+    - path: dataset_fixed.zip
+      md5: 324b8d39251a2cbdf00527ebed29be97
+      size: 8838725
