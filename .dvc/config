@@ -1,0 +1,2 @@
+['remote "default"']
+    url = ../git@github.com:TFofanova-py/ml_project_pipeline.git
