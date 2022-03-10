@@ -37,3 +37,25 @@ stages:
     - path: datasets/y_train.pickle
       md5: 51f8ead72703970a0af44e2473eee64b
       size: 61993
+  train_model:
+    cmd: python train_model.py
+    deps:
+    - path: datasets/x_test.pickle
+      md5: 92525e6442a58b967f5c11f8e51a181c
+      size: 8454308
+    - path: datasets/x_train.pickle
+      md5: 297f92a7685f505dbd93f8b4c1727388
+      size: 25329828
+    - path: datasets/y_test.pickle
+      md5: 8f8c8d1591714b3c9649db94b61cf25f
+      size: 20793
+    - path: datasets/y_train.pickle
+      md5: 51f8ead72703970a0af44e2473eee64b
+      size: 61993
+    - path: train_model.py
+      md5: e2c858ce1e9dffac707252d940f505b3
+      size: 4826
+    outs:
+    - path: models/model.pickle
+      md5: b15d252c08c943cb75d98d3863b63a3b
+      size: 27610334

@@ -17,3 +17,14 @@ stages:
     - datasets/y_test.pickle
     params:
     - split_dataset.train_size
+  train_model:
+    cmd: python train_model.py
+    deps:
+    - datasets/x_test.pickle
+    - datasets/x_train.pickle
+    - datasets/y_test.pickle
+    - datasets/y_train.pickle
+    - train_model.py
+    outs:
+    - models/model.pickle:
+        cache: false
