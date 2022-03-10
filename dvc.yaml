@@ -3,3 +3,14 @@ stages:
     cmd: unzip -q dataset_fixed.zip -d datasets/
     deps:
     - dataset_fixed.zip
+    outs:
+    - datasets/dataset_fixed/
+  split_dataset:
+    cmd: python split_dataset.py
+    deps:
+    - datasets/dataset_fixed/
+    outs:
+    - datasets/x_train.pickle
+    - datasets/x_test.pickle
+    - datasets/y_train.pickle
+    - datasets/y_test.pickle
