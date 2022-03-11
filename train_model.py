@@ -71,14 +71,14 @@ def train_one_epoch(model, train_dataloader, criterion, optimizer, device="cuda:
     print(loss)
 
 
-def predict(model, val_dataloder, criterion, device="cuda:0"):
+def predict(model, dataloader, criterion, device="cuda:0"):
     model.eval()
 
     # PREDICT FOR EVERY ELEMENT OF THE VAL DATALOADER AND RETURN CORRESPONDING LISTS
     losses, predicted_classes, true_classes = [], [], []
 
     with torch.no_grad():
-        for x_batch, y_batch in val_dataloader:
+        for x_batch, y_batch in dataloader:
             x_batch = x_batch.to(device)
             y_batch = y_batch.to(device)
             y_pred = model(x_batch)
@@ -124,6 +124,7 @@ val_dataset = MyDataset(X_test, Y_test, transform=val_transform)
 
 train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=params["batch_size"], shuffle=True)
 val_dataloader = torch.utils.data.DataLoader(val_dataset, batch_size=params["batch_size"])
+
 
 # train model
 device = torch.device("cuda:0") if torch.cuda.is_available() else torch.device("cpu")

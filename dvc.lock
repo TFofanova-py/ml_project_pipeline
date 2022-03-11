@@ -53,12 +53,12 @@ stages:
       md5: 4a8c7624c9f15a430e36f2b9a24ea070
       size: 66122
     - path: train_model.py
-      md5: 2151bb908e383db8d4c704d8fcc6f59b
-      size: 5374
+      md5: 05df0e8f1becccc3141496de04bde184
+      size: 5368
     outs:
     - path: metrics.json
-      md5: 74637c7cdaf42763e5072b5a8f135fd8
-      size: 84
+      md5: 850ece4c0a5a10480ed2eecdbec74c34
+      size: 85
     - path: models/model.pickle
-      md5: af226ebbb311e7023279e4e132ebb75d
+      md5: c7db1dd5364e576082694a0d6a41f673
       size: 27610320
