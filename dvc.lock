@@ -55,10 +55,19 @@ stages:
     - path: train_model.py
       md5: 05df0e8f1becccc3141496de04bde184
       size: 5368
+    params:
+      params.yaml:
+        train_model.batch_size: 32
+        train_model.n_epochs: 15
+        train_model.optimizer_lr: 0.001
+        train_model.optimizer_method: Adam
+        train_model.scheduler_factor: 0.5
+        train_model.scheduler_method: ReduceLROnPlateau
+        train_model.scheduler_patience: 0
     outs:
     - path: metrics.json
-      md5: 850ece4c0a5a10480ed2eecdbec74c34
-      size: 85
+      md5: dd554bbc3349019fc11c9a67a2c81816
+      size: 86
     - path: models/model.pickle
-      md5: c7db1dd5364e576082694a0d6a41f673
-      size: 27610320
+      md5: 838a8a1aa2b49543348a8d4e08c0f9c3
+      size: 27610322

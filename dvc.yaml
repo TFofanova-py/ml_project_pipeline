@@ -25,6 +25,14 @@ stages:
     - datasets/y_test.pickle
     - datasets/y_train.pickle
     - train_model.py
+    params:
+    - train_model.batch_size
+    - train_model.n_epochs
+    - train_model.optimizer_method
+    - train_model.optimizer_lr
+    - train_model.scheduler_method
+    - train_model.scheduler_factor
+    - train_model.scheduler_patience
     outs:
     - models/model.pickle:
         cache: false
