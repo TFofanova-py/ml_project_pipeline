@@ -1,0 +1,12 @@
+split_dataset:
+    train_size: 0.8
+train_model:
+    batch_size: 32
+    n_epochs: 15
+    optimizer_method: "Adam"
+    optimizer_lr: 0.0001
+    scheduler_method: "ReduceLROnPlateau"
+    scheduler_factor: 0.5
+    scheduler_patience: 0
+    
+    

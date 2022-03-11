@@ -7,6 +7,7 @@ import torchvision.transforms as T
 import pickle
 import random
 import yaml
+import json
 from sklearn.metrics import accuracy_score
 import os
 
@@ -45,6 +46,7 @@ class Model_cnn(nn.Module):
         out = F.softmax(self.fc2(out), dim=-1)
         return out
 
+
 def set_random_seed(seed):
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
@@ -60,30 +62,29 @@ def train_one_epoch(model, train_dataloader, criterion, optimizer, device="cuda:
         x_batch = x_batch.to(device)
         y_batch = y_batch.to(device)
         y_pred = model(x_batch)
-        
+
         loss = criterion(y_pred, y_batch).to(device)
-                
+
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
     print(loss)
-        
 
 
 def predict(model, val_dataloder, criterion, device="cuda:0"):
     model.eval()
-    
+
     # PREDICT FOR EVERY ELEMENT OF THE VAL DATALOADER AND RETURN CORRESPONDING LISTS
     losses, predicted_classes, true_classes = [], [], []
-    
+
     with torch.no_grad():
         for x_batch, y_batch in val_dataloader:
             x_batch = x_batch.to(device)
             y_batch = y_batch.to(device)
             y_pred = model(x_batch)
-    
+
             loss = criterion(y_pred, y_batch).to(device)
-            losses.append(loss.cpu()) 
+            losses.append(loss.cpu())
             predicted_classes.extend(torch.argmax(y_pred, dim=-1).cpu())
             true_classes.extend(y_batch.cpu())
     return losses, predicted_classes, true_classes
@@ -92,28 +93,27 @@ def predict(model, val_dataloder, criterion, device="cuda:0"):
 def train(model, train_dataloader, val_dataloader, criterion, optimizer, device="cuda:0", n_epochs=10, scheduler=None):
     model.to(device)
     for epoch in range(n_epochs):
-        
         train_one_epoch(model, train_dataloader, criterion, optimizer, device)
         losses, pred_classes, true_classes = predict(model, val_dataloader, criterion, device)
         scheduler.step(np.mean(losses))
-        
+
         accuracy = accuracy_score(pred_classes, true_classes)
         print(f"{epoch}: {accuracy}")
 
 
-set_random_seed(120)       
+set_random_seed(120)
 
 with open("datasets/x_train.pickle", "rb") as f:
-	X_train = pickle.load(f)
+    X_train = pickle.load(f)
 with open("datasets/x_test.pickle", "rb") as f:
-	X_test = pickle.load(f)
+    X_test = pickle.load(f)
 with open("datasets/y_train.pickle", "rb") as f:
-	Y_train = pickle.load(f)
+    Y_train = pickle.load(f)
 with open("datasets/y_test.pickle", "rb") as f:
-	Y_test = pickle.load(f)
-	
+    Y_test = pickle.load(f)
+
 with open("params.yaml", "r") as f:
-	params = yaml.safe_load(f)["train_model"]
+    params = yaml.safe_load(f)["train_model"]
 
 # make dataloaders  
 train_transform = T.Compose([T.ToTensor(), T.Normalize((0.5), (0.5))])
@@ -125,7 +125,6 @@ val_dataset = MyDataset(X_test, Y_test, transform=val_transform)
 train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=params["batch_size"], shuffle=True)
 val_dataloader = torch.utils.data.DataLoader(val_dataset, batch_size=params["batch_size"])
 
-
 # train model
 device = torch.device("cuda:0") if torch.cuda.is_available() else torch.device("cpu")
 
@@ -133,13 +132,32 @@ model = Model_cnn().to(device)
 
 optimizer = torch.optim.Adam(model.parameters(), lr=params["optimizer_lr"])
 criterion = torch.nn.CrossEntropyLoss(reduction='mean')
-scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=params["scheduler_factor"], patience=params["scheduler_patience"], verbose=True)
+scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=params["scheduler_factor"],
+                                                       patience=params["scheduler_patience"], verbose=True)
 n_epochs = params["n_epochs"]
-
 
 train(model, train_dataloader, val_dataloader, criterion, optimizer, device, n_epochs, scheduler)
 
+# write model
 os.makedirs("models", exist_ok=True)
 
 with open("models/model.pickle", "wb") as f:
-	pickle.dump(model, f)
+    pickle.dump(model, f)
+
+# write metrics
+_, pred_classes, true_classes = predict(model, train_dataloader, criterion, device)
+accuracy_train = accuracy_score(pred_classes, true_classes)
+
+_, pred_classes, true_classes = predict(model, val_dataloader, criterion, device)
+accuracy_val = accuracy_score(pred_classes, true_classes)
+
+with open("metrics.json", "w") as f:
+    record = {
+        "train": {
+            "accuracy": accuracy_train
+        },
+        "valid": {
+            "accuracy": accuracy_val
+        }
+    }
+    json.dump(record, f)

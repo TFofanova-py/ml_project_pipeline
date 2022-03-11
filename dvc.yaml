@@ -28,3 +28,6 @@ stages:
     outs:
     - models/model.pickle:
         cache: false
+    metrics:
+    - metrics.json:
+        cache: false

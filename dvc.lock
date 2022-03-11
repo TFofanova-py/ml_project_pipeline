@@ -23,39 +23,42 @@ stages:
       size: 671
     params:
       params.yaml:
-        split_dataset.train_size: 0.75
+        split_dataset.train_size: 0.8
     outs:
     - path: datasets/x_test.pickle
-      md5: 92525e6442a58b967f5c11f8e51a181c
-      size: 8454308
+      md5: 6c0de74c02e18ea90fc65367f7deb132
+      size: 6766756
     - path: datasets/x_train.pickle
-      md5: 297f92a7685f505dbd93f8b4c1727388
-      size: 25329828
+      md5: 5f0bd274f2a129f8e837ff45054149cf
+      size: 27017380
     - path: datasets/y_test.pickle
-      md5: 8f8c8d1591714b3c9649db94b61cf25f
-      size: 20793
+      md5: 4acf49838dcd303e8579fdedb94ff618
+      size: 16673
     - path: datasets/y_train.pickle
-      md5: 51f8ead72703970a0af44e2473eee64b
-      size: 61993
+      md5: 4a8c7624c9f15a430e36f2b9a24ea070
+      size: 66122
   train_model:
     cmd: python train_model.py
     deps:
     - path: datasets/x_test.pickle
-      md5: 92525e6442a58b967f5c11f8e51a181c
-      size: 8454308
+      md5: 6c0de74c02e18ea90fc65367f7deb132
+      size: 6766756
     - path: datasets/x_train.pickle
-      md5: 297f92a7685f505dbd93f8b4c1727388
-      size: 25329828
+      md5: 5f0bd274f2a129f8e837ff45054149cf
+      size: 27017380
     - path: datasets/y_test.pickle
-      md5: 8f8c8d1591714b3c9649db94b61cf25f
-      size: 20793
+      md5: 4acf49838dcd303e8579fdedb94ff618
+      size: 16673
     - path: datasets/y_train.pickle
-      md5: 51f8ead72703970a0af44e2473eee64b
-      size: 61993
+      md5: 4a8c7624c9f15a430e36f2b9a24ea070
+      size: 66122
     - path: train_model.py
-      md5: e2c858ce1e9dffac707252d940f505b3
-      size: 4826
+      md5: 2151bb908e383db8d4c704d8fcc6f59b
+      size: 5374
     outs:
+    - path: metrics.json
+      md5: 74637c7cdaf42763e5072b5a8f135fd8
+      size: 84
     - path: models/model.pickle
-      md5: b15d252c08c943cb75d98d3863b63a3b
-      size: 27610334
+      md5: af226ebbb311e7023279e4e132ebb75d
+      size: 27610320
