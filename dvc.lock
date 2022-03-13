@@ -52,13 +52,16 @@ stages:
     - path: datasets/y_train.pickle
       md5: 4a8c7624c9f15a430e36f2b9a24ea070
       size: 66122
+    - path: mydataset.py
+      md5: 51841e710e6150b699fbdb89efbe26e6
+      size: 508
     - path: train_model.py
-      md5: 05df0e8f1becccc3141496de04bde184
-      size: 5368
+      md5: 907cbb603c0b361c09e9b4b088db94f4
+      size: 5179
     params:
       params.yaml:
         train_model.batch_size: 32
-        train_model.n_epochs: 15
+        train_model.n_epochs: 10
         train_model.optimizer_lr: 0.001
         train_model.optimizer_method: Adam
         train_model.scheduler_factor: 0.5
@@ -66,8 +69,8 @@ stages:
         train_model.scheduler_patience: 0
     outs:
     - path: metrics.json
-      md5: dd554bbc3349019fc11c9a67a2c81816
+      md5: bbcc73bf94c6a34177bbc6ef1a3075f3
       size: 86
-    - path: models/model.pickle
-      md5: 838a8a1aa2b49543348a8d4e08c0f9c3
-      size: 27610322
+    - path: models/model_pytorch
+      md5: 4cca4f9fcd8e03d7fcf6ecd72a05293a
+      size: 27609103

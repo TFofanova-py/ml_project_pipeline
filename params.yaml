@@ -2,7 +2,7 @@ split_dataset:
   train_size: 0.8
 train_model:
   batch_size: 32
-  n_epochs: 15
+  n_epochs: 10
   optimizer_method: Adam
   optimizer_lr: 0.001
   scheduler_method: ReduceLROnPlateau

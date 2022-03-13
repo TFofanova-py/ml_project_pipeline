@@ -25,6 +25,7 @@ stages:
     - datasets/y_test.pickle
     - datasets/y_train.pickle
     - train_model.py
+    - mydataset.py
     params:
     - train_model.batch_size
     - train_model.n_epochs
@@ -34,7 +35,7 @@ stages:
     - train_model.scheduler_factor
     - train_model.scheduler_patience
     outs:
-    - models/model.pickle:
+    - models/model_pytorch:
         cache: false
     metrics:
     - metrics.json:
