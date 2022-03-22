@@ -1,3 +1,4 @@
+import os
 import onnx
 import onnxruntime
 from flask import Flask
@@ -26,15 +27,18 @@ def upload_img():
         try:
             # processing request
             file = request.files['image']
-            with open(f"./examples/{file.filename}", 'rb') as img:
+            file.save("temp_file")
+            with open("temp_file", 'rb') as img:
                 source_image = base64.b64encode(img.read()).decode('utf-8')
-            img_np = read_image(f"./examples/{file.filename}", mode=ImageReadMode.GRAY)
+            img_np = read_image("temp_file", mode=ImageReadMode.GRAY)
 
         except FileNotFoundError:
             response = make_response("bag request", 400)
+            os.remove("temp_file")
             return response
 
         else:
+            os.remove("temp_file")
             # if request is OK, make prediction
             pred = make_prediction(ort_session, img_np)[0]
 
